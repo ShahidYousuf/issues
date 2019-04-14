@@ -16,8 +16,8 @@ defmodule Issues do
   @profession "Software Developer"
   @email "shahid.yousuf@trialx.com"
   @company "TrialX | Applied Informatics Pvt. Ltd."
-  
-  def hello do
-    :world
+
+  def info do
+    "App: issues, created by #{@author}, #{@profession} at #{@company}. Email at #{@email} "
   end
 end
