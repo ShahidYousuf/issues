@@ -34,5 +34,14 @@ defmodule Issues.CLI do
 
     def process({user, project, _count}) do
         Issues.GithubIssues.fetch(user, project)
+        |> decode_response
     end
+
+    def decode_response({:ok, body}) do
+        body
+    end
+    def decode_response({:error, reason}) do
+        reason
+    end
+   
 end
