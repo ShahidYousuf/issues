@@ -1,4 +1,4 @@
-# Issues
+# issues
 
 **Sample Elixir application that fetches github issues from a repo.**
 
