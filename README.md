@@ -1,6 +1,6 @@
 # Issues
 
-**TODO: Add description**
+**Sample Elixir application that fetches github issues from a repo.**
 
 ## Installation
 
@@ -14,8 +14,10 @@ def deps do
   ]
 end
 ```
+## Usage
+```
+$ issues <user> <project> [count]
+```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/issues](https://hexdocs.pm/issues).
+Author: [Shahid Yousuf](http://shahidyousuf.com)
 
