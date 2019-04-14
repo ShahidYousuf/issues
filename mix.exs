@@ -27,4 +27,10 @@ defmodule Issues.MixProject do
       {:jsx, "~> 2.9"}
     ]
   end
+  
+  defp escript_config do
+    [
+      main_module: Issue.CLI
+    ]
+  end
 end

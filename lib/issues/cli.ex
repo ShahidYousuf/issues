@@ -8,7 +8,7 @@ defmodule Issues.CLI do
     the last __n__ issues of a github project.
     """
 
-    def run(argv) do
+    def main(argv) do
         argv
             |> parse_args
             |> process
@@ -32,16 +32,33 @@ defmodule Issues.CLI do
         System.halt(0)
     end
 
-    def process({user, project, _count}) do
+    def process({user, project, count}) do
         Issues.GithubIssues.fetch(user, project)
         |> decode_response
+        |> convert_to_list_of_hashdicts
+        |> sort_into_ascending_order
+        |> Enum.take(count)
+        |> print_data
     end
 
     def decode_response({:ok, body}) do
-        body
+        body    
     end
     def decode_response({:error, reason}) do
         reason
+    end
+
+    def convert_to_list_of_hashdicts(list) do
+        list
+           |> Enum.map(&Enum.into(&1, HashDict.new))
+    end
+
+    def sort_into_ascending_order(list_of_issues) do
+        Enum.sort(list_of_issues, fn a, b -> a["created_at"] <= b["created_at"] end)
+    end
+
+    def print_data(list) do
+        Enum.map(list, fn rec -> to_string(rec["number"]) <> " " <> to_string(rec["created_at"]) <> " " <> to_string(rec["title"]) end)
     end
    
 end
