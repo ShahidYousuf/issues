@@ -14,12 +14,12 @@ defmodule Issues.GithubIssues do
     end
 
     def handle_response({:ok, %{status_code: 200, body: body}}) do
-        {:ok, body}
+        {:ok, :jsx.decode(body)}
     end
     def handle_response({:ok, %{status_code: 404, body: body}}) do
-        {:ok, body}
+        {:ok, :jsx.decode(body)}
     end
     def handle_response({:error,%{reason: reason}}) do
-        {:error, reason}
+        {:error, :jsx.decode(reason)}
     end
 end
