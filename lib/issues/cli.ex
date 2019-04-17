@@ -45,20 +45,32 @@ defmodule Issues.CLI do
         body    
     end
     def decode_response({:error, reason}) do
-        reason
+        List.insert_at([], 0, reason)
     end
 
-    def convert_to_list_of_hashdicts(list) do
+    def convert_to_list_of_hashdicts(list) when is_list(hd(list)) do
         list
            |> Enum.map(&Enum.into(&1, HashDict.new))
     end
 
-    def sort_into_ascending_order(list_of_issues) do
+    def convert_to_list_of_hashdicts(list) do
+        list
+    end
+
+    def sort_into_ascending_order(list_of_issues) when is_map(hd(list_of_issues)) do
         Enum.sort(list_of_issues, fn a, b -> a["created_at"] <= b["created_at"] end)
     end
 
-    def print_data(list) do
+    def sort_into_ascending_order(list_of_issues) do
+        list_of_issues
+    end
+
+    def print_data(list) when is_map(hd(list)) do
         Enum.map(list, fn rec -> to_string(rec["number"]) <> " " <> to_string(rec["created_at"]) <> " " <> to_string(rec["title"]) end)
+    end
+
+    def print_data(list) do
+        list
     end
    
 end
